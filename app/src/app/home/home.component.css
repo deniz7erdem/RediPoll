@@ -1,0 +1,10 @@
+/* h1 {
+    text-shadow: 2px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000,
+             1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;
+} */
+
+.pin>input {
+    height: 90px;
+    font-size: xx-large;
+    text-align: center;
+}
