@@ -10,35 +10,23 @@
     <div class="col-md-6" style="border-right: 1px solid rgba(255, 255, 255, .1);padding-inline: 50px !important;">
         <h1>Create RediPoll</h1>
         <div class="input-group-lg mt-4 mb-3">
-            <input type="text" class="form-control" placeholder="Poll Title">
+            <input type="text" class="form-control" placeholder="Poll Title" [(ngModel)]="this.title" maxlength="40">
         </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">A</span>
-            <input type="text" class="form-control" placeholder="Option" aria-label="Option">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">B</span>
-            <input type="text" class="form-control" placeholder="Option" aria-label="Option">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">C</span>
-            <input type="text" class="form-control" placeholder="Option" aria-label="Option">
+        <div class="input-group mb-3" *ngFor="let item of [].constructor(this.options.length); let i = index">
+            <span class="input-group-text">{{i+1}}</span>
+            <input type="text" [(ngModel)]="this.options[i]" class="form-control" placeholder="Option"
+                aria-label="Option" (input)="checkOptionInput($event,i)" (blur)="checkOptionBlur($event,i)">
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-outline-info">Add Option</button>
-            <button class="btn btn-outline-light">Start</button>
+            <button class="btn btn-lg btn-outline-light" (click)="deny()">Start</button>
         </div>
     </div>
 
     <div class="col-md-6" style="padding-inline: 50px;">
         <h1>Join RediPoll</h1>
         <div class="input-group mt-4 pin">
-            <input type="text" class="form-control" placeholder="X" maxlength="1">
-            <input type="text" class="form-control" placeholder="X" maxlength="1">
-            <input type="text" class="form-control" placeholder="X" maxlength="1">
-            <input type="text" class="form-control" placeholder="X" maxlength="1">
-            <input type="text" class="form-control" placeholder="X" maxlength="1">
-            <input type="text" class="form-control" placeholder="X" maxlength="1">
+            <input type="number" class="form-control" placeholder="X" maxlength="1" id="pin{{i}}"
+                *ngFor="let item of [].constructor(6); let i = index" (keyup)="focusPin($event,i)">
             <button class="btn btn-lg btn-outline-light" type="button">Join</button>
         </div>
     </div>
