@@ -26,7 +26,7 @@
         <h1>Join RediPoll</h1>
         <div class="input-group mt-4 pin">
             <input type="number" class="form-control" placeholder="X" maxlength="1" id="pin{{i}}"
-                *ngFor="let item of [].constructor(6); let i = index" (keyup)="focusPin($event,i)">
+                *ngFor="let item of [].constructor(6); let i = index" (keyup)="pinUp($event,i)" (keydown)="pinDown($event,i)" oninput="this.value = this.value?parseInt(this.value.toString().slice(0,1)):''">
             <button class="btn btn-lg btn-outline-light" type="button">Join</button>
         </div>
     </div>

@@ -31,15 +31,22 @@ export class HomeComponent {
     }
   }
 
-  focusPin(event: any, i: number) {
-    if (event.target.value == '') {
-      console.log('empty');
-      if (i != 0) {
-        this.elementRef.nativeElement.querySelector(`#pin${i - 1}`).focus();
-      }
+  pinDown(event: any, i: number) {
+    if (event.key == 'ArrowUp' || event.key == 'ArrowDown') {
       return;
+    } else if (event.key == 'ArrowLeft' && i != 0) {
+      this.elementRef.nativeElement.querySelector(`#pin${i - 1}`).focus();
+    } else if (event.key == 'ArrowRight' && i != 5) {
+      this.elementRef.nativeElement.querySelector(`#pin${i + 1}`).focus();
+    } else if (i != 5 && event.target.value != '' && event.key != 'Backspace') {
+      this.elementRef.nativeElement.querySelector(`#pin${i + 1}`).focus();
     }
-    this.elementRef.nativeElement.querySelector(`#pin${i + 1}`).focus();
+  }
+
+  pinUp(event: any, i: number) {
+    if (event.key == 'Backspace' && i != 0) {
+      this.elementRef.nativeElement.querySelector(`#pin${i - 1}`).focus();
+    }
   }
 
   deny() {
