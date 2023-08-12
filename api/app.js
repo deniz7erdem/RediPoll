@@ -25,9 +25,29 @@ io.on('connection', async (socket) => {
   client.incr('online');
   io.emit('online', parseInt(online) + 1);
 
-  socket.on('welcome', async (msg) => {
-    console.log(msg);
-    //io.emit('welcome', msg);
+  socket.on('join', async (data) => {
+    socket.join(data.pollId);
+    console.log(socket.id + 'joined to' + data.pollId);
+    socket.broadcast.to(data.pollId).emit('join', data);
+  });
+
+  socket.on('leave', async (data) => {
+    socket.broadcast.to(data.pollId).emit('leave', data);
+    console.log(socket.id + 'leaved to' + data.pollId);
+    socket.leave(data.pollId);
+
+  });
+
+  socket.on('vote', async (data) => {
+    // console.log(data);
+    // socket.broadcast.to(data.pollId).emit('vote', data);
+    console.log(socket.id + 'voted to' + data.vote);
+    io.to(data.pollId).emit('new vote', data);
+  });
+
+  socket.on('welcome', async (data) => {
+    console.log(data);
+    io.emit('welcome', data);
   });
 
   // client.on('message', async (channel, message) => {
